@@ -5,13 +5,27 @@ import java.util.Map;
 /**
  * @author 胡腾
  * @time 2017/8/23  22:54
- * @desc ${TODD}
+ * @desc 请求参数封装bean
  */
 public class Requset {
+
+    /**
+     * 将请求方式封装在枚举中
+     */
+    public enum method {GET, POST, PUT, DELETE}
 
     private String url;
     private String content;
     private Map<String, String> headers;
+    private method method;
+
+    public Requset() {
+    }
+
+    public Requset(String url, Requset.method method) {
+        this.url = url;
+        this.method = method;
+    }
 
     public String getUrl() {
         return url;
@@ -35,5 +49,13 @@ public class Requset {
 
     public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
+    }
+
+    public Requset.method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Requset.method method) {
+        this.method = method;
     }
 }

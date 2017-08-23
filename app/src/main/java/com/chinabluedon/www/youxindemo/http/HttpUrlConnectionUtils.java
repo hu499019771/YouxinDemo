@@ -18,23 +18,44 @@ import java.util.Map;
 public class HttpUrlConnectionUtils {
 
     public static final int TIME_OUT = 15 * 000;
+    public static final String GET = "GET";
+    public static final String POST = "POST";
 
-    public static String get(Requset requset) throws IOException {
+
+    public static
+    @Nullable
+    String excute(Requset requset) throws IOException {
+        switch (requset.getMethod()) {
+            case GET:
+                return get(requset);
+            case POST:
+                return post(requset);
+            case PUT:
+
+                break;
+            case DELETE:
+
+                break;
+        }
+        return null;
+    }
+
+    private static String get(Requset requset) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(requset.getUrl()).openConnection();
-        connection.setRequestMethod("GET");
-        connection.setConnectTimeout(TIME_OUT);
-        connection.setReadTimeout(TIME_OUT);
+        connection.setRequestMethod(GET);
+        setTimeOut(connection);
 
         addHeaderParams(connection, requset.getHeaders());
 
         return handerResponse(connection);
     }
 
-    public static String post(Requset request) throws IOException {
+
+
+    private static String post(Requset request) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(request.getUrl()).openConnection();
-        connection.setRequestMethod("POST");
-        connection.setConnectTimeout(TIME_OUT);
-        connection.setReadTimeout(TIME_OUT);
+        connection.setRequestMethod(POST);
+        setTimeOut(connection);
         connection.setDoOutput(true);
 
         addHeaderParams(connection, request.getHeaders());
@@ -45,10 +66,25 @@ public class HttpUrlConnectionUtils {
         return handerResponse(connection);
     }
 
+    /**
+     * 添加连接和读写超时时间
+     * @param connection
+     */
+    private static void setTimeOut(HttpURLConnection connection) {
+        connection.setConnectTimeout(TIME_OUT);
+        connection.setReadTimeout(TIME_OUT);
+    }
+
+    /**
+     * 处理请求成功的结果
+     * @param connection
+     * @return
+     * @throws IOException
+     */
     @Nullable
     private static String handerResponse(HttpURLConnection connection) throws IOException {
         int status = connection.getResponseCode();
-        if (status == 200) {
+        if (status == HttpStatus.SC_OK) {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             InputStream in = connection.getInputStream();
             byte[] buffer = new byte[2048];

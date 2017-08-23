@@ -22,9 +22,8 @@ public class TestHttp extends InstrumentationTestCase {
      */
     public void testHttpGet() throws IOException {
         String url = "http://api.stay4it.com";
-        Requset requset = new Requset();
-        requset.setUrl(url);
-        String result = HttpUrlConnectionUtils.get(requset);
+        Requset requset = new Requset(url, Requset.method.GET);
+        String result = HttpUrlConnectionUtils.excute(requset);
         Log.e(TAG,result);
     }
 
@@ -34,10 +33,9 @@ public class TestHttp extends InstrumentationTestCase {
     public void testHttpPost() throws IOException {
         String url = "http://api.stay4it.com/v1/public/core/?service=user.login";
         String content = "account=stay4it&password=123456";
-        Requset requset=new Requset();
-        requset.setUrl(url);
+        Requset requset=new Requset(url, Requset.method.POST);
         requset.setContent(content);
-        String result = HttpUrlConnectionUtils.post(requset);
+        String result = HttpUrlConnectionUtils.excute(requset);
         Log.e(TAG,result);
     }
 }
