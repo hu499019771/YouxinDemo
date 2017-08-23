@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Map;
 
@@ -22,40 +23,41 @@ public class HttpUrlConnectionUtils {
     public static final String POST = "POST";
 
 
+    /**
+     * 将所有的请求方法放在一个方法中,提供外界调用,符合最少知识原则面向对象原则,即调用方对被调用方的了解最少(就一个方法)
+     * 这样调用者不需要花过多时间来了解被调用方细节,方便维护
+     * @param requset
+     * @return
+     * @throws IOException
+     */
     public static
     @Nullable
     String excute(Requset requset) throws IOException {
         switch (requset.getMethod()) {
             case GET:
+            case DELETE:
                 return get(requset);
             case POST:
-                return post(requset);
             case PUT:
-
-                break;
-            case DELETE:
-
-                break;
+                return post(requset);
         }
         return null;
     }
 
-    private static String get(Requset requset) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(requset.getUrl()).openConnection();
-        connection.setRequestMethod(GET);
-        setTimeOut(connection);
+    private static String get(Requset request) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(request.getUrl()).openConnection();
 
-        addHeaderParams(connection, requset.getHeaders());
+        setTimeOut(request,connection);
+
+        addHeaderParams(connection, request.getHeaders());
 
         return handerResponse(connection);
     }
 
 
-
     private static String post(Requset request) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(request.getUrl()).openConnection();
-        connection.setRequestMethod(POST);
-        setTimeOut(connection);
+        setTimeOut(request,connection);
         connection.setDoOutput(true);
 
         addHeaderParams(connection, request.getHeaders());
@@ -68,15 +70,18 @@ public class HttpUrlConnectionUtils {
 
     /**
      * 添加连接和读写超时时间
+     *
      * @param connection
      */
-    private static void setTimeOut(HttpURLConnection connection) {
+    private static void setTimeOut(Requset requset,HttpURLConnection connection) throws ProtocolException {
+        connection.setRequestMethod(requset.getMethod().name());
         connection.setConnectTimeout(TIME_OUT);
         connection.setReadTimeout(TIME_OUT);
     }
 
     /**
      * 处理请求成功的结果
+     *
      * @param connection
      * @return
      * @throws IOException

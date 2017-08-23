@@ -18,13 +18,25 @@ public class Requset {
     private String content;
     private Map<String, String> headers;
     private method method;
+    private ICallBack mCallBack;
+
+
 
     public Requset() {
     }
 
+
     public Requset(String url, Requset.method method) {
         this.url = url;
         this.method = method;
+    }
+
+    public ICallBack getCallBack() {
+        return mCallBack;
+    }
+
+    public void setCallBack(ICallBack callBack) {
+        mCallBack = callBack;
     }
 
     public String getUrl() {

@@ -38,4 +38,5 @@ public class TestHttp extends InstrumentationTestCase {
         String result = HttpUrlConnectionUtils.excute(requset);
         Log.e(TAG,result);
     }
+
 }
