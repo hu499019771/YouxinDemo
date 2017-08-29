@@ -16,10 +16,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testHttpOnSubThread();
+        testHtttpGetOnSubThread();
     }
 
-    private void testHttpOnSubThread() {
+    private void testHtttpGetOnSubThread () {
+        String url = "http://api.stay4it.com";
+        Requset requset = new Requset(url, Requset.method.GET);
+        requset.setCallBack(new ICallBack() {
+            @Override
+            public void onSucceed (String result) {
+                Log.e(TAG,result);
+            }
+
+            @Override
+            public void onFailed (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        new RequestTask().execute(requset);
+    }
+
+    private void testHttpPostOnSubThread () {
         String url = "http://api.stay4it.com/v1/public/core/?service=user.login";
         String content = "account=stay4it&password=123456";
         Requset requset=new Requset(url, Requset.method.POST);
