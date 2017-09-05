@@ -1,4 +1,4 @@
-package com.chinabluedon.www.youxindemo.customview;
+package com.chinabluedon.www.youxindemo.customview.activity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
