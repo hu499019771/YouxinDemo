@@ -27,9 +27,11 @@ public class CustomViewActivity extends Activity {
     protected void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
+
         gestureDetector();
         velocityTracker();
     }
+
 
     private void velocityTracker () {
         //2.1开始速度追踪
@@ -37,7 +39,7 @@ public class CustomViewActivity extends Activity {
     }
 
     private void startTracker (MotionEvent event) {
-        if(mVelocityTracker==null) {
+        if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }
         mVelocityTracker.addMovement(event);
