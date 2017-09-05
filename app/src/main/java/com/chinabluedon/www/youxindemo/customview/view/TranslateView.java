@@ -34,7 +34,7 @@ public class TranslateView extends View {
         canvas.translate(200,200);
         canvas.drawText("我是画布移动后文字",100,100,mPaint);
         //画布旋转后
-        canvas.rotate(30);
+//        canvas.rotate(30);
         canvas.drawText("我是画布旋转后文字",100,100,mPaint);
 
         //画布被剪裁后
@@ -45,5 +45,17 @@ public class TranslateView extends View {
         canvas.drawRect(200,200,500,500,mPaint);
         canvas.clipRect(200,200,500,500);
         canvas.drawLine(100,100,600,600,mPaint);
+
+
+        //建立蒙版
+        canvas.save();
+        canvas.drawRect(300,300,600,600,mPaint);
+
+        //合并蒙版
+        canvas.restore();
+        mPaint.reset();
+        mPaint.setTextSize(20);
+        mPaint.setColor(Color.GREEN);
+        canvas.drawText("我是蒙版合并后文字",300,400,mPaint);
     }
 }
