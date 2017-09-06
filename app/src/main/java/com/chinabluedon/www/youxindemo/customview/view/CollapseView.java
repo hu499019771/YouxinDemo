@@ -32,11 +32,15 @@ public class CollapseView extends LinearLayout {
     private final static int mDuration = 1000;
     private View mView;
 
+    public CollapseView(Context context) {
+        this(context, null);
+    }
 
     public CollapseView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         //将局部绑定到LinearLayout上
+
         LayoutInflater.from(mContext).inflate(R.layout.collapse, this);
 
         initView();
