@@ -2,7 +2,6 @@ package com.chinabluedon.www.youxindemo;
 
 import android.test.InstrumentationTestCase;
 import android.util.Log;
-
 import com.chinabluedon.www.youxindemo.http.HttpUrlConnectionUtils;
 import com.chinabluedon.www.youxindemo.http.Requset;
 

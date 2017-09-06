@@ -1,8 +1,10 @@
 package com.chinabluedon.www.youxindemo;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ViewConfiguration;
 
 import com.chinabluedon.www.youxindemo.http.ICallBack;
 import com.chinabluedon.www.youxindemo.http.RequestTask;
@@ -17,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         testHtttpGetOnSubThread();
+
+
+
     }
 
     private void testHtttpGetOnSubThread () {
