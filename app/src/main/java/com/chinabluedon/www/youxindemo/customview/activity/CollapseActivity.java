@@ -14,13 +14,27 @@ import com.chinabluedon.www.youxindemo.customview.view.CollapseView;
  */
 public class CollapseActivity extends Activity {
 
-    private CollapseView mCollapseView;
+    private CollapseView mCollapseView1;
+    private CollapseView mCollapseView2;
+    private CollapseView mCollapseView3;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collapse);
-        mCollapseView = (CollapseView) findViewById(R.id.collapse);
-        mCollapseView.addToContainer(R.layout.layout_imageview);
+        mCollapseView1 = (CollapseView) findViewById(R.id.collapse1);
+        mCollapseView1.addToContainer(R.layout.layout_imageview);
+        mCollapseView1.setNumber("1");
+        mCollapseView1.setContent("小猪1");
+
+        mCollapseView2 = (CollapseView) findViewById(R.id.collapse2);
+        mCollapseView2.addToContainer(R.layout.layout_imageview);
+        mCollapseView2.setNumber("2");
+        mCollapseView2.setContent("小猪2");
+
+        mCollapseView3 = (CollapseView) findViewById(R.id.collapse3);
+        mCollapseView3.addToContainer(R.layout.layout_imageview);
+        mCollapseView3.setNumber("3");
+        mCollapseView3.setContent("小猪3");
     }
 }
