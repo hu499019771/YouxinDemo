@@ -3,6 +3,7 @@ package com.chinabluedon.www.youxindemo.customview.view;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,6 +21,8 @@ import com.chinabluedon.www.youxindemo.R;
  * @desc ${TODD}
  */
 public class CollapseView extends LinearLayout {
+
+    private final static String TAG="CollapseView";
 
     private Context mContext;
     private int parentWidthMeasureSpec;
@@ -110,6 +113,7 @@ public class CollapseView extends LinearLayout {
         Animation animation = new Animation() {
             @Override
             protected void applyTransformation (float interpolatedTime, Transformation t) {
+                Log.e(TAG,interpolatedTime+"");
                 if (interpolatedTime == 1) {
                     mRlContainer.setVisibility(GONE);
                 } else {
