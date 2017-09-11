@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,13 +29,13 @@ public class ViewPagerActivity extends Activity {
         setContentView(R.layout.layout_viewpager);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mViewPager.setAdapter(new ViewPagerAdaper(this));
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+        /*mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch (View v, MotionEvent event) {
                 mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
                 return false;
             }
-        });
+        });*/
     }
 
     public static class ViewPagerAdaper extends PagerAdapter {
@@ -51,8 +50,6 @@ public class ViewPagerActivity extends Activity {
         @Override
         public Object instantiateItem (View container, int position) {
             LinearLayout itemView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_imageview, (ViewGroup) container, false);
-            int width = itemView.getWidth();
-            int height = itemView.getHeight();
 
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
             imageView.setImageResource(pagesArray[position]);

@@ -15,8 +15,6 @@ import com.chinabluedon.www.youxindemo.R;
 
 import java.util.ArrayList;
 
-import static com.chinabluedon.www.youxindemo.R.id.recyclerView;
-
 /**
  * @author ht
  * @time 2017/9/9  10:44
@@ -32,10 +30,9 @@ public class RecyClerViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recyclerview);
         initData();
-        mRecyclerView = (RecyclerView) findViewById(recyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(new Adapter());
-        mRecyclerView.setNestedScrollingEnabled(false);
         /*mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch (View v, MotionEvent event) {
