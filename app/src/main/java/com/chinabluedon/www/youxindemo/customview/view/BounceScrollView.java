@@ -36,7 +36,8 @@ public class BounceScrollView extends LinearLayout {
     public boolean onTouchEvent (MotionEvent e) {
         int action = e.getAction();
         switch (action) {
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_UP:
+                //复位
                 break;
             default:
                 mGestureDetector.onTouchEvent(e);
