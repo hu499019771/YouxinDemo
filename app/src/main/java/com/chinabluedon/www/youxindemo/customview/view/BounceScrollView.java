@@ -3,6 +3,7 @@ package com.chinabluedon.www.youxindemo.customview.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
@@ -15,6 +16,8 @@ import android.widget.Scroller;
  */
 public class BounceScrollView extends LinearLayout {
 
+    private final static String TAG = "BounceScrollView";
+
     //新建手势识别器
     //除了down事件,其余事件通过手势识别器来控制
     //手势识别器的onScroll回到中调用View滑动方法来进行移动
@@ -22,6 +25,7 @@ public class BounceScrollView extends LinearLayout {
 
     private Scroller mScroller;
     private final GestureDetector mGestureDetector;
+    private float totalY;
 
     public BounceScrollView (Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -37,7 +41,14 @@ public class BounceScrollView extends LinearLayout {
         int action = e.getAction();
         switch (action) {
             case MotionEvent.ACTION_UP:
-                //复位
+                try {
+                    Thread.sleep(2000);
+                    totalY = 0;
+                    reset();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+
                 break;
             default:
                 mGestureDetector.onTouchEvent(e);
@@ -46,7 +57,12 @@ public class BounceScrollView extends LinearLayout {
         return super.onTouchEvent(e);
     }
 
+    private void reset () {
+        beginScroll(0 - mScroller.getFinalX(), 0 - mScroller.getFinalY());
+    }
+
     public class GestureDetectorImpl implements GestureDetector.OnGestureListener {
+
 
 
         @Override
@@ -65,7 +81,12 @@ public class BounceScrollView extends LinearLayout {
         }
 
         @Override
-        public boolean onScroll (MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        public boolean onScroll (MotionEvent e1, MotionEvent e2, float x, float y) {
+            Log.e(TAG, y + "");
+            totalY += y;
+            if (totalY < 0 && Math.abs(totalY) < 500) {
+                beginScroll(0, (int) (y / 2));
+            }
             return false;
         }
 
