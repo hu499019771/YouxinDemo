@@ -11,25 +11,25 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="false"
+            android:clickable="true"
             android:src="@drawable/a"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="false"
+            android:clickable="true"
             android:src="@drawable/b"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="false"
+            android:clickable="true"
             android:src="@drawable/c"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="false"
+            android:clickable="true"
             android:src="@drawable/d"/>
     </com.chinabluedon.www.youxindemo.customview.view.ViewGroupView>
 

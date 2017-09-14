@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Scroller;
 
 /**
  * @author ht
@@ -20,18 +21,25 @@ public class ViewGroupView extends ViewGroup {
     //4.处理触摸事件,移动多少,就滑动多少,处理左边和右边越界
     //5.在moveup动作中,处理屏幕滑动距离是否超过屏幕一半决定显示在哪边
 
+    private final static String TAG = "ViewGroupView";
+
     private int leftLimit;//左边界限制的坐标
     private int rightLimit;//右边界限制的坐标
     private final int mScreenWidth;//屏幕宽度
     private final int mTouchSlop;//最短滑动距离
-    private float startX;//起始滑动式X坐标
-    private float totalX;
+    private float downX;//起始滑动式X坐标
+    private float totalX;//X轴累计移动的距离
+    private float mScrollX;//X轴手势滑动的长度
+    private Scroller mScroller;
+    private float lastX;
+    private int scrollx;
 
     public ViewGroupView (Context context, AttributeSet attrs) {
         super(context, attrs);
         mScreenWidth = getResources().getDisplayMetrics().widthPixels;
         ViewConfiguration configuration = ViewConfiguration.get(context);
         mTouchSlop = configuration.getScaledTouchSlop();
+        mScroller = new Scroller(context);
 
     }
 
@@ -68,17 +76,19 @@ public class ViewGroupView extends ViewGroup {
         switch (e.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
-                startX = e.getX();
-                totalX = 0;
+                downX = e.getRawX();//手指按下时的坐标
+                lastX = downX;
                 break;
             case MotionEvent.ACTION_MOVE:
                 //当手势移动达到要求时,自己处理拦截事件
-                float currX = e.getX();
-                totalX += (currX - startX);
-                startX = currX;
-                if (Math.abs(totalX) > mTouchSlop) {
+                float moveX = e.getRawX();//移动到下一点的坐标
+                float moveDistance = Math.abs(moveX - lastX);
+                lastX = moveX;
+                if (moveDistance > mTouchSlop) {
                     return true;
                 }
+                break;
+            case MotionEvent.ACTION_UP:
                 break;
         }
         return super.onInterceptTouchEvent(e);
@@ -88,13 +98,51 @@ public class ViewGroupView extends ViewGroup {
     public boolean onTouchEvent (MotionEvent e) {
         switch (e.getAction()) {
             case MotionEvent.ACTION_MOVE:
-                //手势移动多少,
+                float moveX = e.getRawX();
+                int moveDistance = (int) (lastX - moveX);
+                scrollx = getScrollX();
+                //当view移动到左边界时,做溢出处理
+                if (scrollx + moveDistance < 0) {
+                    scrollTo(leftLimit, 0);
+                    return true;
+                }
+
+
+                //当view移动到右边界时,做溢出处理
+                if (scrollx + moveDistance + mScreenWidth > rightLimit) {
+                    scrollTo(rightLimit - mScreenWidth, 0);
+                    return true;
+                }
+
+                //手势左右移动多少,Viwe就左右移动多少
+                scrollBy(moveDistance, 0);
+                lastX = moveX;
                 break;
 
             case MotionEvent.ACTION_UP:
-
+                scrollx = getScrollX();
+                int index = (scrollx + mScreenWidth / 2) / mScreenWidth;
+                int distanceX = mScreenWidth * index - scrollx;
+                mScroller.startScroll(scrollx, 0, distanceX, 0);
+                invalidate();
+                break;
+            case MotionEvent.ACTION_DOWN:
+                downX = e.getX();
                 break;
         }
         return super.onTouchEvent(e);
+    }
+
+    private void beginScroll (int x) {
+        mScroller.startScroll(mScroller.getFinalX(), mScroller.getFinalY(), x, 0);
+        invalidate();
+    }
+
+    @Override
+    public void computeScroll () {
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            invalidate();
+        }
     }
 }
