@@ -6,8 +6,18 @@
               android:orientation="vertical">
 
     <com.chinabluedon.www.youxindemo.customview.view.TimeLineView
-        android:layout_width="80dp"
-        android:layout_height="120dp"
+        android:id="@+id/timeLineView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:circleBac="@drawable/timeline_bg_blue"
+        app:endLineBac="@color/colorPrimary"
+        app:startLineBac="@color/colorPrimary"/>
+    <com.chinabluedon.www.youxindemo.customview.view.TimeLineView
+        app:orientation="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:circleBac="@drawable/timeline_bg_blue"
+        app:endLineBac="@color/colorPrimary"
         app:startLineBac="@color/colorPrimary"/>
 
 </LinearLayout>

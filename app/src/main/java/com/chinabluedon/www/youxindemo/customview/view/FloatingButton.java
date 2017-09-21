@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.chinabluedon.www.youxindemo.MeasureUtil;
+import com.chinabluedon.www.youxindemo.utils.MeasureUtil;
 import com.chinabluedon.www.youxindemo.R;
 
 /**

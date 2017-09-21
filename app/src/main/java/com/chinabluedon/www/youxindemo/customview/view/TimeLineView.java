@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.chinabluedon.www.youxindemo.R;
+import com.chinabluedon.www.youxindemo.utils.ResourceUtils;
 
 /**
  * @author ht
@@ -17,7 +18,7 @@ import com.chinabluedon.www.youxindemo.R;
  */
 public class TimeLineView extends View {
 
-    private int mCircleSize = 20;
+    private int d = 24;//圆形图标的直径
     private Drawable mCircleBac;
     private int mLineSize = 2;
     private Drawable mStartLineBac;
@@ -40,7 +41,7 @@ public class TimeLineView extends View {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimeLineView);
 
-        mCircleSize = a.getDimensionPixelSize(R.styleable.TimeLineView_circleSize, mCircleSize);
+        d = a.getDimensionPixelSize(R.styleable.TimeLineView_d, d);
 
         mCircleBac = a.getDrawable(R.styleable.TimeLineView_circleBac);
 
@@ -123,38 +124,68 @@ public class TimeLineView extends View {
         int widthCanUse = width - paddingLeft - paddingRight;
         int heightCanUse = height - paddingTop - paddingBottom;
 
+        int x, y, r;//圆心坐标及半径
+
         Rect rect = new Rect();
+
+        d = ResourceUtils.dp2px(getContext(), d);
+        mLineSize = ResourceUtils.dp2px(getContext(), mLineSize);
 
         mLineSize = Math.min(widthCanUse, mLineSize);
 
         //3.分别考虑竖向和横向两种情况
         if (mOrientation) {//横向
+            Rect circleRect = new Rect();
+            d = Math.min(heightCanUse, d);
+            r = d / 2;
+
+            x = width / 2 + paddingLeft;
+            y = paddingTop + r;
+
+            if (mCircleBac != null) {
+                circleRect.set(x - r, paddingTop, x + r, paddingTop + d);
+            } else {
+                circleRect.set(x, y, x, y);
+            }
+            mCircleBac.setBounds(circleRect);
+
+            if (mStartLineBac != null) {
+                rect.set(0, y - mLineSize / 2, circleRect.left, y + mLineSize / 2);
+                mStartLineBac.setBounds(rect);
+            }
+
+            if (mEndLineBac != null) {
+                rect.set(circleRect.right, y - mLineSize / 2, width, y + mLineSize / 2);
+                mEndLineBac.setBounds(rect);
+            }
 
         } else {//竖向
             //4.竖向
-            mCircleSize = Math.min(widthCanUse, mCircleSize);
             //4.1确定圆形的绘制矩形范围
             Rect circleRect = new Rect();
+            d = Math.min(widthCanUse, d);
+            r = d / 2;
+
+            x = paddingLeft + r;
+            y = paddingTop + height / 2;
+
             if (mCircleBac != null) {
-                circleRect.set(paddingLeft, height / 2 + paddingTop - mCircleSize / 2,
-                        paddingLeft + mCircleSize, height / 2 + paddingTop + mCircleSize / 2);
+                circleRect.set(paddingLeft, y - r, paddingLeft + d, y + r);
             } else {
-                circleRect.set(paddingLeft + mCircleSize / 2, paddingTop + height / 2,
-                        paddingLeft + mCircleSize / 2, paddingTop + height / 2);
+                circleRect.set(x, y, x, y);
             }
             mCircleBac.setBounds(circleRect);
 
             //4.2确定上面直线的绘制矩形
             if (mStartLineBac != null) {
-                rect.set(paddingLeft + mCircleSize / 2 - mLineSize / 2, 0,
-                        paddingLeft + mCircleSize / 2 + mLineSize / 2, rect.top);
+                rect.set(x - mLineSize / 2, 0, x + mLineSize / 2, circleRect.top);
                 mStartLineBac.setBounds(rect);
             }
 
             //4.3确定下面直线的绘制矩形
             if (mEndLineBac != null) {
-                rect.set(paddingLeft + mCircleSize / 2 - mLineSize / 2, rect.bottom,
-                        paddingLeft + mCircleSize / 2 + mLineSize / 2, height);
+                rect.set(x - mLineSize / 2, circleRect.bottom, x + mLineSize / 2, height);
+                mEndLineBac.setBounds(rect);
             }
         }
 
@@ -171,6 +202,57 @@ public class TimeLineView extends View {
         }
         if (mEndLineBac != null) {
             mEndLineBac.draw(canvas);
+        }
+    }
+
+    public void setDiameter (int d) {
+        if (this.d != d) {
+            this.d = d;
+            initDrawablePosition();
+            invalidate();
+        }
+    }
+
+    public void setLineSize (int lineSize) {
+        if (mLineSize != lineSize) {
+            mLineSize = lineSize;
+            initDrawablePosition();
+            invalidate();
+        }
+    }
+
+    public void setOrientation (boolean orientation) {
+        if (mOrientation != orientation) {
+            mOrientation = orientation;
+            initDrawablePosition();
+            invalidate();
+        }
+    }
+
+    public void setCircleBac (Drawable circleBac) {
+        if (mCircleBac != circleBac && circleBac != null) {
+            mCircleBac = circleBac;
+            mCircleBac.setCallback(this);
+            initDrawablePosition();
+            invalidate();
+        }
+    }
+
+    public void setStartLineBac (Drawable startLineBac) {
+        if (mStartLineBac != startLineBac && startLineBac != null) {
+            mStartLineBac = startLineBac;
+            mStartLineBac.setCallback(this);
+            initDrawablePosition();
+            invalidate();
+        }
+    }
+
+    public void setEndLineBac (Drawable endLineBac) {
+        if (mEndLineBac != endLineBac && endLineBac != null) {
+            mEndLineBac = endLineBac;
+            mEndLineBac.setCallback(this);
+            initDrawablePosition();
+            invalidate();
         }
     }
 }

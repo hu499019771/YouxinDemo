@@ -1,4 +1,4 @@
-package com.chinabluedon.www.youxindemo;
+package com.chinabluedon.www.youxindemo.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;

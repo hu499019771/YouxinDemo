@@ -3,9 +3,12 @@ package com.chinabluedon.www.youxindemo.customview.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.chinabluedon.www.youxindemo.R;
+
+import java.math.BigDecimal;
 
 /**
  * @author ht
@@ -20,18 +23,10 @@ public class TimeLineActivity extends Activity {
     protected void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        mView = findViewById(R.id.view_test);
-        mView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange (View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                mView.removeOnLayoutChangeListener(this);
-                int width = mView.getWidth();
-                int height = mView.getHeight();
-                int paddingLeft = mView.getPaddingLeft();
-                int paddingRight = mView.getPaddingRight();
-                System.out.println("");
-            }
-        });
+        mView = findViewById(R.id.timeLineView);
+        double round = round(2.345, 2);
+        Log.e("onCreate",round+"");
+
     }
 
     @Override
@@ -45,5 +40,15 @@ public class TimeLineActivity extends Activity {
     protected void onResume () {
         super.onResume();
 
+    }
+
+    public  double round(double v, int scale) {
+        if (scale < 0) {
+            throw new IllegalArgumentException("The scale must be a positive integer or zero");
+        }
+
+        BigDecimal b = new BigDecimal(Double.toString(v));
+        BigDecimal one = new BigDecimal("1");
+        return b.divide(one, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }

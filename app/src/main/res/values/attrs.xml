@@ -34,7 +34,7 @@
     <declare-styleable name="TimeLineView">
 
         <!--圆点大小-->
-        <attr name="circleSize" format="dimension"/>
+        <attr name="d" format="dimension"/>
 
         <!--圆点背景图或颜色-->
         <attr name="circleBac" format="color|reference"/>
