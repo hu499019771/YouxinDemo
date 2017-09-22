@@ -52,4 +52,11 @@
         <attr name="orientation" format="boolean"/>
 
     </declare-styleable>
+
+    <!--自定义圆形-->
+    <declare-styleable name="CircleView">
+
+        <!--颜色-->
+        <attr name="color" format="color"/>
+    </declare-styleable>
 </resources>

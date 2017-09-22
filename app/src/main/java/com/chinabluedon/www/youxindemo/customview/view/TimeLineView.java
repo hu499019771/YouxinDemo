@@ -255,4 +255,6 @@ public class TimeLineView extends View {
             invalidate();
         }
     }
+
+
 }
