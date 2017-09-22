@@ -34,6 +34,7 @@ public class HorizontalScrollViewEx extends ViewGroup {
 
     public HorizontalScrollViewEx (Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     private void init () {
@@ -80,13 +81,13 @@ public class HorizontalScrollViewEx extends ViewGroup {
         //在onLayout中放置子View
         int childCount = getChildCount();
 
-        int width = 0;
+        int childLeft = 0;
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
                 mChildWidth = child.getMeasuredWidth();
-                child.layout(width, 0, width + child.getMeasuredWidth(), child.getMeasuredHeight());
-                width += child.getMeasuredWidth();
+                child.layout(childLeft, 0, childLeft + child.getMeasuredWidth(), child.getMeasuredHeight());
+                childLeft += child.getMeasuredWidth();
             }
         }
     }
@@ -149,13 +150,31 @@ public class HorizontalScrollViewEx extends ViewGroup {
                 scrollBy(-deltaX, 0);
                 break;
             case MotionEvent.ACTION_UP:
+                int scrollX = getScrollX();
 
+                mTracker.computeCurrentVelocity(1000);
+                float xVelocity = mTracker.getXVelocity();
+                if (Math.abs(xVelocity) > 50) {//当速度大于50时
+                    mChildIndex = xVelocity > 0 ? mChildIndex - 1 : mChildIndex + 1;
+                } else {//当速度小于50时
+                    mChildIndex = (scrollX + mChildWidth / 2) / mChildWidth;
+                }
+                //确定滑到的页数
+                mChildIndex = Math.max(0, Math.min(mChildIndex, mChildCount - 1));
+                int distanceX = mChildIndex * mChildWidth - scrollX;
+                smoothScroll(distanceX);
+                mTracker.clear();
                 break;
             default:
                 break;
         }
         mLastX = x;
         return true;
+    }
+
+    private void smoothScroll (int dx) {
+        mScroller.startScroll(getScrollX(), 0, dx, 0,500);
+        invalidate();
     }
 
 

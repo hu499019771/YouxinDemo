@@ -44,4 +44,22 @@ public class ResourceUtils {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
+
+    /**
+     * 获取屏幕宽度
+     * @param context
+     * @return px值
+     */
+    public static int getScreenWidth (Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    /**
+     * 获取屏幕高度
+     * @param context
+     * @return px值
+     */
+    public static int getScreenHeight(Context context){
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
 }
