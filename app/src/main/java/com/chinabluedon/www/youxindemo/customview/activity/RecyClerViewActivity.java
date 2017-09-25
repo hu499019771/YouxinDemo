@@ -42,6 +42,7 @@ public class RecyClerViewActivity extends Activity {
         });*/
     }
 
+
     private void initData () {
 
         for (int i = 0; i < 10; i++) {

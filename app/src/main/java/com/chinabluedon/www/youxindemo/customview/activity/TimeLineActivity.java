@@ -1,14 +1,14 @@
 package com.chinabluedon.www.youxindemo.customview.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.chinabluedon.www.youxindemo.R;
-
-import java.math.BigDecimal;
 
 /**
  * @author ht
@@ -18,37 +18,39 @@ import java.math.BigDecimal;
 public class TimeLineActivity extends Activity {
 
     private View mView;
+    private final static String TAG = "TimeLineActivity";
+    private Button mButton;
 
     @Override
-    protected void onCreate (@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        mView = findViewById(R.id.timeLineView);
-        double round = round(2.444446, 4);
-        Log.e("TimeLineActivity",round+"");
+        mButton = (Button) findViewById(R.id.button);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TimeLineActivity.this, FloatingActivity.class));
+            }
+        });
     }
 
     @Override
-    protected void onStart () {
+    protected void onStart() {
         super.onStart();
 
 
     }
 
     @Override
-    protected void onResume () {
+    protected void onResume() {
         super.onResume();
 
     }
 
-    public static double round(double v, int scale) {
-        if (scale < 0) {
-            throw new IllegalArgumentException("The scale must be a positive integer or zero");
-        }
-
-        BigDecimal b = new BigDecimal(Double.toString(v));
-        BigDecimal one = new BigDecimal("1");
-        return b.divide(one, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Log.e(TAG, hasFocus + "");
     }
 
 }
