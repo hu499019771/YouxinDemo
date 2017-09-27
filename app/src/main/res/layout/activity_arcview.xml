@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/imageViewB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/b"/>
+
+        <ImageView
+            android:id="@+id/imageViewC"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/c"/>
+
+        <ImageView
+            android:id="@+id/imageViewD"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/d"/>
+
+        <ImageView
+            android:id="@+id/imageViewE"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/e"/>
+
+        <ImageView
+            android:id="@+id/imageViewF"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/f"/>
+
+        <ImageView
+            android:id="@+id/imageViewG"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/g"/>
+
+        <ImageView
+            android:id="@+id/imageViewH"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/h"/>
+
+        <ImageView
+            android:id="@+id/imageViewA"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/a"
+            />
+
+    </FrameLayout>
+
+</LinearLayout>
