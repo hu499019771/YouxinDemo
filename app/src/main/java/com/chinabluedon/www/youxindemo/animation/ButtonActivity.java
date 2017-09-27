@@ -1,9 +1,11 @@
 package com.chinabluedon.www.youxindemo.animation;
 
-import android.animation.ObjectAnimator;
+import android.animation.IntEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,10 +26,29 @@ public class ButtonActivity extends Activity {
         setContentView(R.layout.activity_button);
         mButton = (Button) findViewById(R.id.button);
         mButton.setOnClickListener(new View.OnClickListener() {
+
+            int startX = 0;
+            int endX = 300;
+
             @Override
             public void onClick (View v) {
-                ObjectAnimator.ofInt(new ViewWarpper(mButton), "width", 0,500).setDuration(2000).start();
-                ObjectAnimator.ofInt(new ViewWarpper(mButton), "height", 0,500).setDuration(2000).start();
+                ValueAnimator valueAnimator = ValueAnimator.ofInt(startX, endX);
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+                    private IntEvaluator mIntEvaluator = new IntEvaluator();
+
+                    @Override
+                    public void onAnimationUpdate (ValueAnimator animation) {
+                        int animatedValue = (Integer) animation.getAnimatedValue();
+                        Log.e("onAnimationUpdate", animatedValue + "");
+                        float fraction = animation.getAnimatedFraction();
+                        Integer evaluate = mIntEvaluator.evaluate(fraction, startX, endX);
+                        mButton.getLayoutParams().width = animatedValue;
+                        mButton.getLayoutParams().height = animatedValue;
+                        mButton.requestLayout();
+                    }
+                });
+                valueAnimator.setDuration(1000).start();
             }
         });
     }
@@ -49,12 +70,12 @@ public class ButtonActivity extends Activity {
             return mButton.getLayoutParams().width;
         }
 
-        public void setHeight(int height){
-            mButton.getLayoutParams().height=height;
+        public void setHeight (int height) {
+            mButton.getLayoutParams().height = height;
             mButton.requestLayout();
         }
 
-        public int getHeight(){
+        public int getHeight () {
             return mButton.getLayoutParams().height;
         }
     }
