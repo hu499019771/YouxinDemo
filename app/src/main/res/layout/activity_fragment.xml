@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/left_fragment"
+        android:name="com.chinabluedon.www.youxindemo.fragmentdemo.LeftFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        />
+
+    <fragment
+        android:id="@+id/right_fragment"
+        android:name="com.chinabluedon.www.youxindemo.fragmentdemo.RightFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        />
+
+
+</LinearLayout>
