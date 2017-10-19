@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fragmentdemo.HomeActivity">
+        <activity android:name=".servicedemo.ServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,6 +22,9 @@
         <activity
             android:name=".customview.art.chapter1.SecondActivity"
             android:process=":SecondActivity"/>
+
+        <service android:name=".servicedemo.MyService"/>
+        <service android:name=".servicedemo.MyIntentService"/>
     </application>
 
 </manifest>
