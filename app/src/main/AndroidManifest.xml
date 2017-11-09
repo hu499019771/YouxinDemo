@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".rxjava.CombinationActivity"/>
-        <activity android:name=".rxjava.MathActivity">
+        <activity android:name=".process.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -26,6 +26,14 @@
 
         <service android:name=".servicedemo.MyService"/>
         <service android:name=".servicedemo.MyIntentService"/>
+
+        <activity
+            android:name=".process.TwoActivity"
+            android:process=":test"/>
+
+        <activity android:name=".process.ThreeActivity" android:process="hehe.test">
+
+        </activity>
     </application>
 
 </manifest>
