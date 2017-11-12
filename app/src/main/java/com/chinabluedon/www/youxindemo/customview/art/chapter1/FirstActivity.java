@@ -16,7 +16,7 @@ import com.chinabluedon.www.youxindemo.R;
  */
 public class FirstActivity extends Activity {
 
-    private final static String TAG = "FirstActivity";
+    private final static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

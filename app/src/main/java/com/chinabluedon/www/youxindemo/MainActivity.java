@@ -12,7 +12,7 @@ import com.chinabluedon.www.youxindemo.http.Requset;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "FirstActivity";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

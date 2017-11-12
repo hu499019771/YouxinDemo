@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.chinabluedon.www.youxindemo.R;
@@ -13,12 +14,16 @@ import com.chinabluedon.www.youxindemo.R;
  * @time 2017/11/9  23:34
  * @desc ${TODD}
  */
-public class FirstActivity extends Activity {
+public class MainActivity extends Activity {
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        UserManager.userId = 2;
+        Log.i(TAG, "MainActivity--userId--" + UserManager.userId);
     }
 
     public void click(View view) {
