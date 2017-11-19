@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.chinabluedon.www.youxindemo">
+          package="com.chinabluedon.youxindemo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
@@ -11,8 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".rxjava.CombinationActivity"/>
-        <activity android:name=".process.MainActivity">
+        <activity android:name=".process.TwoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -28,9 +27,6 @@
         <service android:name=".servicedemo.MyService"/>
         <service android:name=".servicedemo.MyIntentService"/>
 
-        <activity
-            android:name=".process.TwoActivity"
-            android:process=":test"/>
 
         <activity android:name=".process.ThreeActivity" android:process="hehe.test">
 
